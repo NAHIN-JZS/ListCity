@@ -99,4 +99,29 @@ public class MainActivityTest{
     public void tearDown() throws Exception{
         solo.finishOpenedActivities();
     }
+    @Test
+    public void newActivityTest(){
+        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+
+        solo.clickOnButton("ADD CITY"); //Click ADD CITY Button
+
+
+        solo.enterText((EditText) solo.getView(R.id.editText_name), "Jessore");
+        solo.clickOnButton("CONFIRM"); //Select CONFIRM Button
+        solo.clearEditText((EditText) solo.getView(R.id.editText_name)); //Clear the EditText
+
+
+        assertTrue(solo.waitForText("Jessore", 1, 2000));
+
+        solo.clickLongInList(1);
+
+        solo.assertCurrentActivity("Wrong Activity", SHOWACTIVITY.class);
+
+        solo.waitForText("Jessore", 1, 2000);
+
+        solo.clickOnButton("Back");
+        assertTrue(solo.waitForText("ADD CITY", 1, 2000));
+        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+
+    }
 }

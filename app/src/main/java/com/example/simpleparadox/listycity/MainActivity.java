@@ -16,6 +16,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import android.content.Intent;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -46,6 +47,17 @@ public class MainActivity extends AppCompatActivity {
 
 
         cityList.setAdapter(cityAdapter);
+        cityList.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            public void onItemClick(AdapterView<?> arg0,View arg1, int position, long arg3)
+            {
+
+                Intent send = new Intent(MainActivity.this, SHOWACTIVITY.class);
+                String val =  cityList.getItemAtPosition(0).toString();
+                send.putExtra("value", val);
+                MainActivity.this.startActivity(send);
+            }
+        });
 
         final Button addButton = findViewById(R.id.button_add);
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -53,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
                 nameField.setVisibility(View.VISIBLE);
             }
         });
+
 
         final Button confirmButton = findViewById(R.id.button_confirm);
         confirmButton.setOnClickListener(new View.OnClickListener() {
